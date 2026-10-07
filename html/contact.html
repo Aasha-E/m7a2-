@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HT Green</title>
+    <!-- StyleSheets -->
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/style.css">
+        <!-- JavaScript -->
+    <script src="../javascript/script.js" defer></script>
+</head>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap" rel="stylesheet">
+</head>
+<body id="top">
+    <main>
+        <!-- Header and Navigation -->
+        <header>
+            <div class="logo-container">
+                <a href="index.html" class="logo" aria-label="HT Green home">
+                    <img src="../images/ht-green-logo.svg" alt="HT Green Logo">
+                </a>
+            </div>
+            <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false" aria-controls="site-navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <nav id="site-navigation">
+                <a href="index.html#about-us">About Us</a>
+                <a href="products.html">Products</a>
+                <a href="promotions.html">Promotions</a>
+                <a href="index.html#testimonial">Testimonials</a>
+                <a href="index.html#resources">Resources</a>
+                <a href="contact.html" class="selected">Contact Us</a>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+         <section class="introduction">
+            <h4>contact us</h4>
+            <div>
+                <h1>
+                    Let's Talk About Your Energy Future
+                </h1>
+                <h3>
+                    Thinking about switching to renewable energy? Have questions about solar panels, battery storage, wind turbines or other green energy solutions?
+                </h3>
+                <h6>The HT Green team is here to help.
+                    Whether you're a homeowner, small business or community organisation, complete the form below and one of our friendly team members will get back to you.
+                </h6>
+            </div>
+        </section>
+
+        <section class="hero form">
+            <div>
+                <h4>Send us a message</h4>
+                <p>Please complete the form with your contact details and a little information about what you're interested in. This will help our team understand how we can best assist you.</p>
+            </div>
+            <div class="contact-form">
+                 <form action="#" method="post" data-success-page="thank-you.html">
+                    
+                    <!-- Personal details -->
+                    <div class="form-group">
+                        <label for="full-name">Full Name <span aria-hidden="true">*</span></label>
+                        <input
+                            type="text"
+                            id="full-name"
+                            name="full_name"
+                            placeholder="Enter your full name"
+                            autocomplete="name"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address <span aria-hidden="true">*</span></label>
+                        <input
+                            type="email"
+                            id="email"
+                            name="email"
+                            placeholder="Enter your email address"
+                            autocomplete="email"
+                            required
+                        >
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <input
+                            type="tel"
+                            id="phone"
+                            name="phone"
+                            placeholder="Enter your phone number"
+                            autocomplete="tel"
+                        >
+                    </div>
+
+                    <!-- Enquiry type -->
+                    <div class="form-group">
+                        <label for="enquiry-type">
+                            Enquiry Type <span aria-hidden="true">*</span>
+                        </label>
+
+                        <select id="enquiry-type" name="enquiry_type" required>
+                            <option value="">Select an enquiry type</option>
+                            <option value="general">General enquiry</option>
+                            <option value="product-information">Product information</option>
+                            <option value="quote">Request a quote</option>
+                            <option value="site-assessment">Site assessment</option>
+                            <option value="installation">Installation enquiry</option>
+                            <option value="support">Existing system support</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+
+                    <!-- Products -->
+                    <fieldset>
+                        <legend>Product of Interest</legend>
+
+                        <div class="checkbox-group">
+                            <label>
+                                <input type="checkbox" name="product[]" value="solar">
+                                Solar Panels
+                            </label>
+
+                            <label>
+                                <input type="checkbox" name="product[]" value="battery">
+                                Battery Storage
+                            </label>
+
+                            <label>
+                                <input type="checkbox" name="product[]" value="wind">
+                                Wind Turbines
+                            </label>
+
+                            <label>
+                                <input type="checkbox" name="product[]" value="hydro">
+                                Small-Scale Hydro
+                            </label>
+
+                            <label>
+                                <input type="checkbox" name="product[]" value="geothermal">
+                                Geothermal Solutions
+                            </label>
+
+                            <label>
+                                <input type="checkbox" name="product[]" value="monitoring">
+                                Smart Energy Monitoring
+                            </label>
+
+                            <label>
+                                <input type="checkbox" name="product[]" value="unsure">
+                                I'm not sure yet
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <!-- Property type -->
+                    <fieldset>
+                        <legend>Property Type</legend>
+
+                        <div class="radio-group">
+                            <label>
+                                <input type="radio" name="property_type" value="residential">
+                                Residential
+                            </label>
+
+                            <label>
+                                <input type="radio" name="property_type" value="small-business">
+                                Small business
+                            </label>
+
+                            <label>
+                                <input type="radio" name="property_type" value="rural">
+                                Rural property
+                            </label>
+
+                            <label>
+                                <input type="radio" name="property_type" value="other">
+                                Other
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <!-- Message -->
+                    <div class="form-group">
+                        <label for="message">
+                            How can we help? <span aria-hidden="true">*</span>
+                        </label>
+
+                        <textarea
+                            id="message"
+                            name="message"
+                            rows="6"
+                            placeholder="Tell us about your energy needs, property or the renewable energy solution you're interested in."
+                            required
+                        ></textarea>
+                    </div>
+
+                    <!-- Contact preference -->
+                    <fieldset>
+                        <legend>Preferred Contact Method</legend>
+
+                        <div class="radio-group">
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="contact_method"
+                                    value="email"
+                                >
+                                Email
+                            </label>
+
+                            <label>
+                                <input
+                                    type="radio"
+                                    name="contact_method"
+                                    value="phone"
+                                >
+                                Phone
+                            </label>
+                        </div>
+                    </fieldset>
+
+                    <!-- Consent -->
+                    <div class="consent">
+                        <label>
+                            <input
+                                type="checkbox"
+                                name="consent"
+                                value="yes"
+                                required
+                            >
+                            I agree to HT Green contacting me about my enquiry.
+                        </label>
+                    </div>
+
+                    <!-- Submit -->
+                    <button type="submit" class="submit-button">
+                        Submit Enquiry
+                    </button>
+
+                </form>
+            </div>
+        </section>
+
+        <section class="call-to-action">
+            <div class="cta-content">
+                <h4>Contact Information</h4>
+                <p>For general enquiries, please reach out to us using the contact form above or via the following methods:</p>
+                        <div class="categories-links">
+                            <h6>Office Address</h6>
+                            <p> 123 Mt.Gordon Industrial Estate, Rocherlea 7248 Tas.</p>
+                            <h6>Phone</h6>
+                            <p><a href="tel:+0400284345">0400284345</a></p>
+                            <h6>Email</h6>
+                            <p><a href="mailto:htgreen@gmail.com">htgreen@gmail.com</a></p>
+                            <h6>Business Hours</h6>
+                            <p>Mon-Fri, 9 AM - 5 PM(AEST)</p>
+                        </div>
+                    </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+                     <footer>
+                <div>
+                    <h6>Stay Connected</h6>
+                    <a href="https://www.facebook.com/">Facebook</a>
+                    <a href="https://www.linkedin.com/">LinkedIn</a>
+                    <a href="https://www.instagram.com/">Instagram</a>
+                    <a href="https://www.youtube.com/">YouTube</a>
+                </div>
+                <div class="links">
+                    <a> &copy; 2025 HTGreen | All Rights Reserved</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms and Conditions</a>
+                </div>
+            </footer>
+
+    </main>
+</body>
+</html>
