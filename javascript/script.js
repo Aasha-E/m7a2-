@@ -344,3 +344,156 @@ function downloadReport (report) {
 downloadButton.addEventListener("click", function() {
   generateReport();
   });
+
+
+
+// Services Gallery
+// Renewable energy projects for the gallery
+const projects = [
+    {
+        title: "Solar PV Solutions",
+
+        image: "../images/solar-panels.jpg",
+
+        alt: "Solar PV system",
+
+        description: `
+            <p>
+                Solar Photovoltaic systems have come of age. Installers now can guarantee reliable cost-free power to your home or business. ROI is now taking less time than ever thanks to the ever decreasing equipment costs and better technology. If you have battery storage such as a Tesla Powerwall or similar Lithium Ion chemistry solutions then you can take your savings even further. Call us now to discuss which solution is the best fit for your home.
+            </p>
+        `
+    },
+
+    {
+        title: "Geothermal",
+
+        image: "../images/geothermal.jpg",
+
+        alt: "Geothermal energy system",
+
+        description: `
+            <p>
+                Energy from the earth. It sounds simple because it is. The earth is warmer than the air and we can use this to heat your home. HT Green can engineer a solution to fit your situation to give you free plentiful home warming energy year-round. Geothermal power is cost effective, reliable, and environmentally friendly, but has previously been geographically limited to areas near tectonic plate boundaries.
+            </p>
+
+            <p>
+                Recent technological advances have dramatically expanded the range and size of viable resources, especially for direct applications such as home heating. Geothermal wells tend to release greenhouse gases trapped deep within the earth, but these emissions are much lower than those of conventional fossil fuels. As a result, geothermal power has the potential to help mitigate global warming if widely deployed instead of fossil fuels.
+            </p>
+        `
+    },
+
+    {
+        title: "Wind Turbines",
+
+        image: "../images/wind-turbines-water-green.jpg",
+
+        alt: "Wind turbines in the sea",
+
+        description: `
+            <p>
+                If you have the space and the aspect, we have the know-how to engineer a wind turbine system that generates electricity when the wind blows. Team a wind turbine with a solar PV system and you increase your energy generation potential. New to wind power?
+            </p>
+
+            <p>
+                HT Green can show you more about how a wind turbine works, the benefits of wind energy and how a wind turbine is installed. If you're not sure on the type of turbine you need, before you buy from us, contact one of our wind power experts for the right advice.
+            </p>
+        `
+    }
+];
+
+
+// Tracks the currently displayed project
+let currentProject = 0;
+
+
+// Get the gallery elements from the HTML
+const gallery =
+    document.querySelector(".gallery");
+
+const galleryImage =
+    document.getElementById("galleryImage");
+
+const galleryTitle =
+    document.getElementById("galleryTitle");
+
+const galleryDescription =
+    document.getElementById("galleryDescription");
+
+const galleryCounter =
+    document.getElementById("galleryCounter");
+
+const previousButton =
+    document.getElementById("previousProject");
+
+const nextButton =
+    document.getElementById("nextProject");
+
+
+// Updates the gallery with the selected project
+function displayProject() {
+
+    const project =
+        projects[currentProject];
+
+    galleryImage.src =
+        project.image;
+
+    galleryImage.alt =
+        project.alt;
+
+    galleryTitle.textContent =
+        project.title;
+
+    galleryDescription.innerHTML =
+        project.description;
+
+    galleryCounter.textContent =
+        `${currentProject + 1} / ${projects.length}`;
+}
+
+
+// Changes the project with a smooth fade transition
+function changeProject(direction) {
+
+    gallery.classList.add("fade-out");
+
+    setTimeout(function() {
+
+        currentProject += direction;
+
+        // Loop to the last project
+        if (currentProject < 0) {
+            currentProject = projects.length - 1;
+        }
+
+        // Loop back to the first project
+        if (currentProject >= projects.length) {
+            currentProject = 0;
+        }
+
+        displayProject();
+
+        gallery.classList.remove("fade-out");
+
+    }, 700);
+}
+
+
+// Previous button
+previousButton.addEventListener("click", function() {
+
+    changeProject(-1);
+
+});
+
+
+// Next button
+nextButton.addEventListener("click", function() {
+
+    changeProject(1);
+
+});
+
+
+// Display the first project when the page loads
+displayProject();

@@ -561,8 +561,77 @@ input[type="checkbox"] {
     cursor: not-allowed;
 }
 
+/* Services Gallery */
+.gallery {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+    padding: 0 4em 6em 4em;
+}
+
+.gallery-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.gallery-image img {
+    width: 100%;
+    max-width: 400px;
+    object-fit: cover;
+    border-radius: 10px;
+    transition: opacity 0.7s ease;
+}
+
+.gallery-content {
+    padding: 20px;
+}
+
+/* Gallery fade transition */
+.gallery-image,
+.gallery-content {
+    opacity: 1;
+    transition: opacity 0.7s ease;
+}
+
+.gallery.fade-out .gallery-image,
+.gallery.fade-out .gallery-content {
+    opacity: 0;
+}
+
+.gallery-navigation {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.gallery-button {
+    background-color: var(--color-light-grey);
+    color: var(--color-primary);
+    border: none;
+    border-radius: 20px;
+    padding: 12px 20px;
+    font-family: var(--font-family-body);
+    font-weight: 400;
+    cursor: pointer;
+    transition: all 0.7s ease;
+}
+
+.gallery-button:hover {
+    background-color: var(--color-accent);
+}
+
+#galleryCounter {
+    font-family: var(--font-family-accent);
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--color-primary);
+}
+
 /* Responsive Design */
-@media (max-width: 824px) {
+@media (max-width: 870px) {
     header {
         padding: 1em 1.25em;
         flex-wrap: wrap;
@@ -697,6 +766,11 @@ input[type="checkbox"] {
         font-size: 24px;
     }
 
+    .introduction-calculator {
+        padding: 4rem 2rem;
+        gap: 2rem;
+    }
+
     .information {
         gap: 0.5rem;
         padding: 1rem 1.25rem 2rem;
@@ -758,6 +832,57 @@ input[type="checkbox"] {
     .footer-information {
         gap: 10px;
         padding: 1em 4em;
+    }
+
+    /* Gallery */
+       .gallery {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 1rem 2rem 3rem;
+    }
+
+    .gallery-image img {
+        width: 100%;
+        max-width: 250px;
+        height: auto;
+    }
+
+    .gallery-content {
+        padding: 0;
+    }
+
+    .services .gallery-content,
+    .resources .hero-text,
+    .resources .accordion {
+        width: 100%;
+        max-width: 650px;
+        margin-inline: auto;
+        text-align: left;
+    }
+
+    .gallery-navigation {
+        justify-content: center;
+    }
+
+    .resources .accordion-button {
+        justify-content: space-between;
+        text-align: left;
+    }
+
+    .resources .accordion-inside {
+        justify-content: flex-start;
+    }
+
+    .resources .accordion-content {
+        text-align: left;
+    }
+
+    .gallery-navigation {
+        gap: 10px;
+    }
+
+    .gallery-button {
+        padding: 10px 14px;
     }
 
     footer {
