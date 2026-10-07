@@ -72,6 +72,98 @@
             </iframe>
         </div>
 
+        <!-- Savings Calculator -->
+         <section class="introduction introduction-calculator">
+            <div class="calculator-introduction">
+                <h1>Renewable Energy Savings Calculator</h1>
+                <p>
+                    Estimate your potential savings and environmental benefits from a renewable energy system.
+                </p>
+            </div>
+            <div class="calculator">
+                <form id="savingsForm">
+                    <div class="form-group">
+                        <label for="quarterlyBill">
+                            Quarterly electricity bill ($)
+                        </label>
+                        <input
+                            type="number"
+                            id="quarterlyBill"
+                            min="0"
+                            step="0.01"
+                            placeholder="e.g. 600"
+                            >
+                    </div>
+
+                    <div class="form-group">
+                        <label for ="system">
+                            Renewable energy system
+                        </label>
+                        <select id="system" name="system">
+                            <option value="">Select a system</option>
+                            <option value="solar">Solar PV</option>
+                            <option value="wind">Wind</option>
+                            <option value="geothermal">Geothermal</option>
+                        </selection>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="years">
+                            Years of ownership
+                        </label>
+                        <input
+                            type="number"
+                            id="years"
+                            name="years"
+                            min="1"
+                            max="60"
+                            step="1"
+                            placeholder="e.g. 10"
+                            >
+                    </div>
+
+                    <button type="submit" class="submit-button">
+                        Calculate Savings
+                    </button>
+                </form>
+
+                <div id="errorMessage" class="error"></div>
+
+                <section id="results" class="results">
+                    <h2>Your Estimated Results</h2>
+
+                    <div class="result-item">
+                        <span>Annual Savings</span>
+                        <strong id="annualSavings">$0</strong>
+                    </div>
+                    
+                    <div class="result-item">
+                        <span>Lifetime savings</span>
+                        <strong id="lifetimeSavings">$0</strong>
+                    </div>
+
+                    <div class="result-item">
+                        <span>Annual carbon reduction</span>
+                        <strong id="annualCarbon">0 kg CO₂-e</strong>
+                    </div>
+
+                    <div class="result-item">
+                        <span>Lifetime carbon reduction</span>
+                        <strong id="lifetimeCarbon">0 kg CO₂-e</strong>
+                    </div>
+
+                    <div class="recommendation">
+                        <h3>Recommendation</h3>
+                        <p id="recommendationText">
+                            Enter your information above to see a recommendation.
+                        </p>
+                    </div>
+                </section>
+
+            </div>
+
+         </section>
+
         <!-- Information Section -->
         <section class="services">
             <h4>services</h4>
