@@ -122,7 +122,7 @@ const downloadButton = document.getElementById("downloadReport");
 
 // Calculate the savings
 
-form.addEventListener("submit", function(event){
+form?.addEventListener("submit", function(event){
   event.preventDefault();
   calculateSavings();
 });
@@ -341,7 +341,7 @@ function downloadReport (report) {
 }
 
 // Download Button
-downloadButton.addEventListener("click", function() {
+downloadButton?.addEventListener("click", function() {
   generateReport();
   });
 
@@ -480,7 +480,7 @@ function changeProject(direction) {
 
 
 // Previous button
-previousButton.addEventListener("click", function() {
+previousButton?.addEventListener("click", function() {
 
     changeProject(-1);
 
@@ -488,7 +488,7 @@ previousButton.addEventListener("click", function() {
 
 
 // Next button
-nextButton.addEventListener("click", function() {
+nextButton?.addEventListener("click", function() {
 
     changeProject(1);
 
@@ -496,4 +496,40 @@ nextButton.addEventListener("click", function() {
 
 
 // Display the first project when the page loads
-displayProject();
+if (gallery) {
+    displayProject();
+}
+
+// Animation on Scroll
+
+// Selects all elements that should fade in when scrolled into view
+const scrollElements =
+    document.querySelectorAll(".scroll-fade");
+
+
+// Detects when an element enters the visible area
+const scrollObserver =
+    new IntersectionObserver(function(entries) {
+
+        entries.forEach(function(entry) {
+
+            if (entry.isIntersecting) {
+
+                entry.target.classList.add("visible");
+
+                scrollObserver.unobserve(entry.target);
+            }
+
+        });
+
+    }, {
+        threshold: 0.15
+    });
+
+
+// Starts observing each selected element
+scrollElements.forEach(function(element) {
+
+    scrollObserver.observe(element);
+
+});
