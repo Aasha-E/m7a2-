@@ -106,7 +106,9 @@ const systemInput = document.getElementById("system");
 
 const yearsInput = document.getElementById("years");
 
-const errorMessage = document.getElementById("errorMessage");
+const quarterlyBillError = document.getElementById("quarterlyBillError");
+const systemError = document.getElementById("systemError");
+const yearsError = document.getElementById("yearsError");
 
 const annualSavingsOutput = document.getElementById("annualSavings");
 
@@ -120,123 +122,167 @@ const lifetimeCarbonOutput =
 const recommendationOutput = document.getElementById("recommendationText");
 const downloadButton = document.getElementById("downloadReport");
 
-// Calculate the savings
-
+// Calculate the savings when the form is submitted.
+// This section validates the user's input at the point of entry and only calculates
+// the estimate when every required field contains acceptable values.
 form?.addEventListener("submit", function(event){
   event.preventDefault();
+
+  if (!validateCalculatorInputs(true)) {
+    return;
+  }
+
   calculateSavings();
 });
 
-function calculateSavings() {
-  errorMessage.textContent ="";
+// Track fields the user has interacted with so untouched required fields stay quiet.
+const touchedCalculatorInputs = new Set();
 
+// Check the calculator inputs as the user types so errors appear before the button is clicked.
+function validateCalculatorInputs(showAllErrors = false) {
+  const quarterlyBill = Number(quarterlyBillInput.value);
+  const system = systemInput.value;
+  const years = Number(yearsInput.value);
+  const fieldErrors = new Map();
+  const isQuarterlyBillInvalid =
+    quarterlyBillInput.value.trim() === "" ||
+    Number.isNaN(quarterlyBill) ||
+    quarterlyBill <= 0;
+  const isSystemInvalid = system === "";
+  const isYearsInvalid =
+    yearsInput.value.trim() === "" ||
+    Number.isNaN(years) ||
+    years <= 0 ||
+    !Number.isInteger(years);
+
+  if (isQuarterlyBillInvalid && (showAllErrors || touchedCalculatorInputs.has(quarterlyBillInput))) {
+    fieldErrors.set(quarterlyBillInput, "Enter a valid quarterly electricity bill greater than $0.");
+  }
+
+  if (isSystemInvalid && (showAllErrors || touchedCalculatorInputs.has(systemInput))) {
+    fieldErrors.set(systemInput, "Select a renewable energy system.");
+  }
+
+  if (isYearsInvalid && (showAllErrors || touchedCalculatorInputs.has(yearsInput))) {
+    fieldErrors.set(yearsInput, "Enter a valid whole number of years of ownership.");
+  }
+
+  [
+    [quarterlyBillInput, quarterlyBillError],
+    [systemInput, systemError],
+    [yearsInput, yearsError]
+  ].forEach(([input, errorOutput]) => {
+    const message = fieldErrors.get(input) || "";
+    errorOutput.textContent = message;
+    errorOutput.hidden = message === "";
+    input.setAttribute("aria-invalid", String(message !== ""));
+  });
+
+  return !isQuarterlyBillInvalid && !isSystemInvalid && !isYearsInvalid;
+}
+
+// Listen for changes on each form field so the user receives validation feedback immediately.
+[quarterlyBillInput, systemInput, yearsInput].forEach((input) => {
+  ["input", "change", "blur"].forEach((eventName) => {
+    input?.addEventListener(eventName, () => {
+      touchedCalculatorInputs.add(input);
+      validateCalculatorInputs();
+    });
+  });
+});
+
+function calculateSavings() {
   const quarterlyBill = Number(quarterlyBillInput.value);
   const system = systemInput.value;
   const years = Number(yearsInput.value);
 
-  // Validate quarterly bill
-  if (quarterlyBill <= 0 || isNaN(quarterlyBill)){
-    errorMessage.textContent = "Please enter a valid quarterly electricity bill.";
+  if (!validateCalculatorInputs(true)) {
     return;
   }
 
-  // Validate renewable energy system
-  if(system==="") {
-    errorMessage.textContent = "Please select a renewable energy system";
-    return;
+  // Calculations
+
+  // Get the selected system data so the estimate matches the renewable option chosen.
+  const selectedSystem = systemData[system];
+
+  // Annual electricity cost based on the quarterly bill.
+  const annualElectricityCost = quarterlyBill * 4;
+
+  // Calculate annual savings using the selected system's estimated savings rate.
+  const annualSavings =
+    annualElectricityCost * selectedSystem.savingsRate;
+
+  // Calculate lifetime savings by multiplying annual savings by the chosen ownership period.
+  const lifetimeSavings = annualSavings * years;
+
+  // Estimate annual electricity usage from the annual bill and electricity price.
+  const annualKwh =
+    annualElectricityCost / electricityPrice;
+
+  // Calculate carbon reduction based on annual electricity use and the system's carbon offset.
+  const annualCarbon =
+    annualKwh * selectedSystem.carbonRate;
+
+  // Calculate total carbon reduction across the full ownership period.
+  const lifetimeCarbon =
+    annualCarbon * years;
+
+  // Display financial results.
+  annualSavingsOutput.textContent =
+    `$${annualSavings.toLocaleString("en-Au", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    })}`;
+
+  lifetimeSavingsOutput.textContent =
+    `$${lifetimeSavings.toLocaleString("en-Au", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    })}`;
+
+  // Display environmental results.
+  annualCarbonOutput.textContent =
+    `${annualCarbon.toLocaleString("en-Au", {
+      minimumFractionDigits: 0
+    })}kg CO₂-e`;
+
+  lifetimeCarbonOutput.textContent =
+    `${lifetimeCarbon.toLocaleString("en-Au", {
+      minimumFractionDigits: 0
+    })}kg CO₂-e`;
+
+  // Generate recommendation based on the estimated financial benefit.
+  let recommendation;
+  if (annualSavings >= 1000) {
+    recommendation =
+      `Based on these estimates, ${selectedSystem.name} could provide significant financial savings. It may be a suitable renewable energy option for your household.`;
+  } else if (annualSavings >= 500) {
+    recommendation =
+      `Based on these estimates, ${selectedSystem.name} could provide moderate financial savings and environmental benefits.`;
+  } else {
+    recommendation =
+      `Based on these estimates, the potential financial savings are relatively low. You may wish to compare the available renewable energy options before making a decision.`;
   }
 
-  // Validate ownership period
-  if (years <=0 || 
-    isNaN(years) || 
-    !Number.isInteger(years)
-  ) {
-    errorMessage.textContent = "Please enter a valid number of whole years.";
-  return;
-}
+  recommendationOutput.textContent = recommendation;
 
-// Calculations
+  // Download Savings Report
 
-//Get selected system data
-const selectedSystem = systemData[system];
+  // Store information for the report so it can be downloaded as a text file later.
+  reportData = {
+    dateGenerated: new Date(),
+    system: selectedSystem.name,
+    quarterlyBill: quarterlyBill,
+    years: years,
+    annualSavings: annualSavings,
+    lifetimeSavings: lifetimeSavings,
+    annualCarbon: annualCarbon,
+    lifetimeCarbon: lifetimeCarbon,
+    recommendation: recommendation
+  };
 
-// Annual Electricity Cost
-const annualElectricityCost = quarterlyBill * 4;
-
-// Calculate annual savings
-const annualSavings =
-  annualElectricityCost * selectedSystem.savingsRate;
-
-  // Calculate lifetime savings
-const lifetimeSavings = annualSavings * years;
-
-// Estimate annual electricity usage
-const annualKwh =
-annualElectricityCost / electricityPrice;
-
-// Calculate carbon reduction
-const annualCarbon =
-annualKwh * selectedSystem.carbonRate;
-
-// Calculate lifetime carbon reduction
-const lifetimeCarbon =
-annualCarbon * years;
-
-// Display financial results
-
-annualSavingsOutput.textContent =
-`$${annualSavings.toLocaleString("en-Au", {
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2
-})}`;
-
-lifetimeSavingsOutput.textContent =
-`$${lifetimeSavings.toLocaleString("en-Au", {
-  minimumFractionDigits: 2,
-  maximumFractionDigits: 2
-})}`;
-
-// Display environmental results
-annualCarbonOutput.textContent =
-`${annualCarbon.toLocaleString("en-Au", {
-  minimumFractionDigits: 0
-})}kg CO₂-e`;
-
-lifetimeCarbonOutput.textContent =
-`${lifetimeCarbon.toLocaleString("en-Au", {
-  minimumFractionDigits: 0
-})}kg CO₂-e`;
-
-// Generate recommendation
-let recommendation;
-if (annualSavings >= 1000) {
-  recommendation =
-  `Based on these estimates, ${selectedSystem.name} could provide significant financial savings. It may be a suitable renewable energy option for your household.`;
-} else if (annualSavings >= 500) {
-  recommendation =
-  `Based on these estimates, ${selectedSystem.name} could provide moderate financial savings and environmental benefits.`;
-} else {
-  recommendation =
-  `Based on these estimates, the potential financial savings are relatively low. You may wish to compare the available renewable energy options before making a decision.`;
-}
-
-recommendationOutput.textContent = recommendation;
-
-// Download Savings Report
-
-// Store information for the report
-reportData = {
-  dateGenerated: new Date (),
-  system: selectedSystem.name,
-  quarterlyBill: quarterlyBill,
-  years: years,
-  annualSavings: annualSavings,lifetimeSavings: lifetimeSavings,annualCarbon: annualCarbon,
-  lifetimeCarbon: lifetimeCarbon,
-  recommendation: recommendation
-};
-
-// Enable download button
-downloadButton.disabled = false;
+  // Enable download button after successful calculation.
+  downloadButton.disabled = false;
 }
 
 // Generate the report

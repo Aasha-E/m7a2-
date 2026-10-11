@@ -530,12 +530,27 @@ input[type="checkbox"] {
     margin-bottom: 10px;
 }
 
+.field-error {
+    color: #b42318;
+    font-size: 0.9rem;
+    margin: 6px 0 0;
+}
+
+.field-error[hidden] {
+    display: none;
+}
+
 .form-group input,
 .form-group select {
     width: 100%;
     padding: 12px;
     border: 1px solid var(--color-light-grey);
     border-radius: 6px;
+}
+
+.form-group input[aria-invalid="true"],
+.form-group select[aria-invalid="true"] {
+    border-color: #b42318;
 }
 
 .results h2 {
