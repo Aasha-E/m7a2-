@@ -1,39 +1,50 @@
 // Accordion functionality
+// Opens the selected accordion and closes any others.
 function toggleAccordion(btn) {
   const item = btn.closest('.accordion-open');
 
   if (!item) return;
 
+  // Check whether the accordion is already open.
   const isOpen = item.classList.contains('open');
 
+  // Close all accordion items.
   document.querySelectorAll('.accordion-open').forEach((accordion) => {
     accordion.classList.remove('open');
   });
 
+  // Reopen the selected accordion if it was closed.
   if (!isOpen) {
     item.classList.add('open');
   }
 }
 
+// Form submission and success page redirection
+// Select forms with a success page specified.
 document.querySelectorAll('form[data-success-page]').forEach((form) => {
   form.addEventListener('submit', (event) => {
+    // Prevent the default form submission.
     event.preventDefault();
+
+    // Redirect to the specified success page.
     window.location.assign(form.dataset.successPage);
   });
 });
 
-// Hamburger Menu
-
+/// Hamburger Menu
+// Toggles mobile navigation and updates accessibility labels.
 const menuButton = document.querySelector('.menu-toggle');
 const siteNavigation = document.getElementById('site-navigation');
 
 if (menuButton && siteNavigation) {
+  // Closes the menu and resets its accessibility attributes.
   const closeMenu = () => {
     document.querySelector('header')?.classList.remove('menu-open');
     menuButton.setAttribute('aria-expanded', 'false');
     menuButton.setAttribute('aria-label', 'Open navigation');
   };
 
+  // Opens or closes the menu when the button is clicked.
   menuButton.addEventListener('click', () => {
     const isOpen = menuButton.getAttribute('aria-expanded') === 'true';
     document.querySelector('header')?.classList.toggle('menu-open', !isOpen);
@@ -41,31 +52,37 @@ if (menuButton && siteNavigation) {
     menuButton.setAttribute('aria-label', isOpen ? 'Open navigation' : 'Close navigation');
   });
 
+  // Closes the menu when a navigation link is selected.
   siteNavigation.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', closeMenu);
   });
 
+  // Closes the menu when the Escape key is pressed.
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape') closeMenu();
   });
 
+  // Closes the menu when switching to a larger screen layout.
   window.matchMedia('(min-width: 825px)').addEventListener('change', closeMenu);
 }
 
 // Header hide/show on scroll
-
+// Hides the header when scrolling down and shows it when scrolling up.
 const pageHeader = document.querySelector('header');
 
 if (pageHeader) {
   let previousScrollY = window.scrollY;
 
+  // Detects scrolling and updates the header visibility.
   window.addEventListener('scroll', () => {
     const currentScrollY = window.scrollY;
     const scrollDifference = currentScrollY - previousScrollY;
 
+    // Keeps the header visible near the top or when scrolling up.
     if (currentScrollY <= pageHeader.offsetHeight || scrollDifference < -4) {
       pageHeader.classList.remove('header-hidden');
     } else if (scrollDifference > 4) {
+      // Hides the header when scrolling down.
       pageHeader.classList.add('header-hidden');
     }
 

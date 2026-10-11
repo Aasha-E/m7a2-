@@ -29,7 +29,7 @@ header{
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 2em;
+    padding: 2rem;
     background-color: var(--color-secondary);
     position: fixed;
     top: 0;
@@ -78,11 +78,11 @@ nav a.selected  {
     gap: 50px;
     color: var(--color-dark);
     align-items: center;
-    padding: 0 4em 6em 4em;
+    padding: 0 4rem 6rem 4rem;
 }
 
 section.first {
-    margin: 10em 5em 5em 5em;
+    margin: 10rem 5rem 5rem 5rem;
 }
 
 .highlight-word {
@@ -126,7 +126,26 @@ h5 {
 
 h6 {
     font-size: 16px;
-    padding-top: 1.5em;
+    padding-top: 1.5rem;
+    font-weight: 600;
+}
+
+.testimonial-author {
+    font-size: 16px;
+    padding-top: 1.5rem;
+    font-weight: 600;
+}
+
+.footer-category-title {
+    font-size: 24px;
+    margin: 40px 0 20px;
+    padding: 0;
+}
+
+.footer-contact-label {
+    font-size: 16px;
+    margin: 0;
+    padding-top: 10px;
     font-weight: 600;
 }
 
@@ -165,7 +184,7 @@ a {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 50px;
-    padding: 2em 4em 6em 4em;
+    padding: 2rem 4rem 6rem 4rem;
     column-rule: #ECF0F1 solid 0.75px;
 }
 
@@ -300,7 +319,7 @@ footer {
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    padding: 2em;
+    padding: 2rem;
     align-items:end;
 
 }
@@ -327,7 +346,7 @@ footer a:hover {
     gap: 50px;
     align-items: flex-start;
     justify-content: center;
-    padding: 11em 4em 6em 4em;
+    padding: 11rem 4rem 6rem 4rem;
     background-color: var(--color-accent);
     color: var(--color-primary);
 }
@@ -338,7 +357,7 @@ footer a:hover {
     gap: 50px;
     align-items: flex-start;
     justify-content: center;
-    padding: 6em 4em 6em 4em;
+    padding: 6rem 4rem 6rem 4rem;
     background-color: var(--color-secondary);
     color: var(--color-primary);
 }
@@ -349,7 +368,7 @@ footer a:hover {
     gap: 50px;
     align-items: center;
     justify-content: center;
-    padding: 4em;
+    padding: 4rem;
     background-color: var(--color-light-grey);
     color: var(--color-primary);
 }
@@ -359,7 +378,7 @@ footer a:hover {
 }
 
 .call-to-action h4 {
-    padding-left: 0em;
+    padding-left: 0rem;
 }
 
 .call-to-action p {
@@ -440,7 +459,7 @@ input[type="checkbox"] {
 }
 
 .hero.form {
-    margin: 6em 4em 4em 4em;
+    margin: 6rem 4rem 4rem 4rem;
     align-items: flex-start;
 }
 
@@ -450,7 +469,7 @@ input[type="checkbox"] {
 
 /* Promotions */
 .promotions {
-    margin: 6em 4em 4em 4em;
+    margin: 6rem 4rem 4rem 4rem;
 }
 
 .promotions h3 {
@@ -475,7 +494,7 @@ input[type="checkbox"] {
 .hero-dark {
     background-color: var(--color-light-grey);
     color: var(--color-primary);
-    padding: 4em;
+    padding: 4rem;
     border-radius: 10px;
 }
 
@@ -521,7 +540,7 @@ input[type="checkbox"] {
 
 /* Savings Calculator */
 .introduction-calculator {
-    padding: 5em;
+    padding: 5rem;
 }
 
 .calculator {
@@ -588,7 +607,7 @@ input[type="checkbox"] {
     grid-template-columns: 1fr 1fr;
     gap: 50px;
     align-items: center;
-    padding: 0 4em 6em 4em;
+    padding: 0 4rem 6rem 4rem;
 }
 
 .gallery-image {
@@ -667,7 +686,7 @@ input[type="checkbox"] {
 /* Responsive Design */
 @media (max-width: 870px) {
     header {
-        padding: 1em 1.25em;
+        padding: 1rem 1.25rem;
         flex-wrap: wrap;
     }
 
@@ -758,7 +777,7 @@ input[type="checkbox"] {
 
     h6 {
         font-size: 14px;
-        padding: 1em 0 0.25em;
+        padding: 0.875rem 0 0.21875rem;
     }
 
     p {
@@ -830,7 +849,7 @@ input[type="checkbox"] {
     }
 
     .hero.form {
-        margin: 2em;
+        margin: 2rem;
     }
 
     .promotions {
@@ -842,7 +861,7 @@ input[type="checkbox"] {
     }
 
     .hero-dark {
-        padding: 1.5em;
+        padding: 1.5rem;
     }
 
     .hero.form {
@@ -865,7 +884,7 @@ input[type="checkbox"] {
 
     .footer-information {
         gap: 10px;
-        padding: 1em 4em;
+        padding: 1rem 4rem;
     }
 
     /* Gallery */
